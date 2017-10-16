@@ -15,6 +15,7 @@ define( 'UCF_ACAD_CAL__PLUGIN_URL', plugins_url( basename( dirname( __FILE__ ) )
 define( 'UCF_ACAD_CAL__STATIC_URL', UCF_ACAD_CAL__PLUGIN_URL . '/static' );
 
 include_once 'admin/ucf-academic-calendar-config.php';
+include_once 'includes/ucf-academic-calendar-feed.php';
 
 if ( ! function_exists( 'ucf_acad_cal_plugin_activation' ) ) {
 	function ucf_acad_cal_plugin_activation() {

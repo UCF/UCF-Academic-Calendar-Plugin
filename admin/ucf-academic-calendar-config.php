@@ -7,9 +7,29 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 		public static
 			$option_prefix    = 'ucf_acad_cal_',
 			$options_defaults = array(
-				'calendar_feed' => 'http://calendar.ucf.edu/feed/upcoming/',
-				'calendar_url'  => 'http://calendar.ucf.edu/'
+				'calendar_feed'    => 'http://calendar.ucf.edu/feed/upcoming/',
+				'calendar_url'     => 'http://calendar.ucf.edu/',
+				'default_count'    => 7,
+				'default_layout'   => 'classic',
+				'cache_items'      => true,
+				'cache_expiration' => 3 // hours
 			);
+
+		/**
+		 * Returns an array of registered layouts
+		 * @author Jim Barnes
+		 * @since 1.0.0
+		 * @return array The array of registered layouts
+		 **/
+		public static function get_layouts() {
+			$layouts = array(
+				'classic' => 'Classic Layout'
+			);
+
+			$layouts = apply_filters( self::$option_prefix . 'get_layouts', $layouts );
+
+			return $layouts;
+		}
 
 		/**
 		 * Creates options via the WP Options API that are utilized by the
@@ -22,6 +42,10 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 
 			add_option( self::$option_prefix . 'calendar_feed', $defaults['calendar_feed'] );
 			add_option( self::$option_prefix . 'calendar_url', $defaults['calendar_url'] );
+			add_option( self::$option_prefix . 'default_count', $defaults['default_count'] );
+			add_option( self::$option_prefix . 'default_layout', $defaults['default_layout'] );
+			add_option( self::$option_prefix . 'cache_items', $defaults['cache_items'] );
+			add_option( self::$option_prefix . 'cache_expiration', $defaults['cache_expiration'] );
 		}
 
 		/**
@@ -33,6 +57,10 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 		public static function delete_options() {
 			delete_option( self::$option_prefix . 'calendar_feed' );
 			delete_option( self::$option_prefix . 'calendar_url' );
+			delete_option( self::$option_prefix . 'default_count' );
+			delete_option( self::$option_prefix . 'default_layout' );
+			delete_option( self::$option_prefix . 'cache_items' );
+			delete_option( self::$option_prefix . 'cache_expiration' );
 		}
 
 		/**
@@ -46,8 +74,12 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 			$defaults = self::$options_defaults;
 
 			$configurable_defaults = array(
-				'calendar_feed' => get_option( self::$option_prefix . 'calendar_feed' ),
-				'calendar_url'  => get_option( self::$option_prefix . 'calendar_url' )
+				'calendar_feed'    => get_option( self::$option_prefix . 'calendar_feed' ),
+				'calendar_url'     => get_option( self::$option_prefix . 'calendar_url' ),
+				'default_count'    => get_option( self::$option_prefix . 'default_count' ),
+				'default_layout'   => get_option( self::$option_prefix . 'default_layout' ),
+				'cache_items'      => get_option( self::$option_prefix . 'cache_items' ),
+				'cache_expiration' => get_option( self::$option_prefix . 'cache_expiration' )
 			);
 
 			$configurable_defaults = self::format_options( $configurable_defaults );
@@ -92,6 +124,13 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 		 public static function format_options( $list ) {
 			foreach( $list as $key => $val ) {
 				switch( $key ) {
+					case 'cache_items':
+						$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+						break;
+					case 'default_count':
+					case 'cache_expiration':
+						$list[$key] = intval( $val );
+						break;
 					default:
 						break;
 				}
@@ -134,6 +173,23 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 				'ucf_acad_cal'
 			);
 
+			add_settings_section(
+				'ucf_acad_cal_display',
+				'Display Settings',
+				null,
+				'ucf_acad_cal'
+			);
+
+			add_settings_section(
+				'ucf_acad_cal_cache',
+				'Feed Caching',
+				null,
+				'ucf_acad_cal'
+			);
+
+			/**
+			 * General Settings
+			 **/
 			register_setting(
 				'ucf_acad_cal',
 				self::$option_prefix . 'calendar_feed'
@@ -167,6 +223,87 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 					'label_for'   => self::$option_prefix . 'calendar_url',
 					'description' => 'The url of the academic calendar (i.e. when a user clicks to see more academic calendar dates).',
 					'type'        => 'text'
+				)
+			);
+
+			/**
+			 * Display Settings
+			 **/
+			register_setting(
+				'ucf_acad_cal',
+				self::$option_prefix . 'default_count'
+			);
+
+			add_settings_field(
+				self::$option_prefix . 'default_count',
+				'Default Item Count',
+				array( 'UCF_Acad_Cal_Config', 'display_settings_field' ),
+				'ucf_acad_cal',
+				'ucf_acad_cal_display',
+				array(
+					'label_for'   => self::$option_prefix . 'default_count',
+					'description' => 'The number of items to display (by default).',
+					'type'        => 'number'
+				)
+			);
+
+			register_setting(
+				'ucf_acad_cal',
+				self::$option_prefix . 'default_layout'
+			);
+
+			$layouts = self::get_layouts();
+
+			add_settings_field(
+				self::$option_prefix . 'default_layout',
+				'Default Layout',
+				array( 'UCF_Acad_Cal_Config', 'display_settings_field' ),
+				'ucf_acad_cal',
+				'ucf_acad_cal_display',
+				array(
+					'label_for'   => self::$option_prefix . 'default_layout',
+					'description' => 'The default layout to use when displaying academic calendar items.',
+					'type'        => 'select',
+					'options'     => $layouts
+				)
+			);
+
+			/**
+			 * Cache Settings
+			 **/
+			register_setting(
+				'ucf_acad_cal',
+				self::$option_prefix . 'cache_items'
+			);
+
+			add_settings_field(
+				self::$option_prefix . 'cache_items',
+				'Cache Feed Items',
+				array( 'UCF_Acad_Cal_Config', 'display_settings_field' ),
+				'ucf_acad_cal',
+				'ucf_acad_cal_cache',
+				array(
+					'label_for'   => self::$option_prefix . 'cache_items',
+					'description' => 'When checked, academic calendar feed items will be cached for the amount of time configured below.',
+					'type'        => 'checkbox'
+				)
+			);
+
+			register_setting(
+				'ucf_acad_cal',
+				self::$option_prefix . 'cache_expiration'
+			);
+
+			add_settings_field(
+				self::$option_prefix . 'cache_expiration',
+				'Cache Expiration (In Hours)',
+				array( 'UCF_Acad_Cal_Config', 'display_settings_field' ),
+				'ucf_acad_cal',
+				'ucf_acad_cal_cache',
+				array(
+					'label_for'   => self::$option_prefix . 'cache_expiration',
+					'description' => 'The length of time (in hours) academic calendar items should be cached.',
+					'type'        => 'number'
 				)
 			);
 		}
