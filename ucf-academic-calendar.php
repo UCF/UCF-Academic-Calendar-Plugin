@@ -16,6 +16,9 @@ define( 'UCF_ACAD_CAL__STATIC_URL', UCF_ACAD_CAL__PLUGIN_URL . '/static' );
 
 include_once 'admin/ucf-academic-calendar-config.php';
 include_once 'includes/ucf-academic-calendar-feed.php';
+include_once 'includes/ucf-academic-calendar-common.php';
+include_once 'layouts/ucf-academic-calendar-classic.php';
+include_once 'shortcodes/ucf-academic-calendar-shortcode.php';
 
 if ( ! function_exists( 'ucf_acad_cal_plugin_activation' ) ) {
 	function ucf_acad_cal_plugin_activation() {
