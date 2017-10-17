@@ -49,6 +49,10 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 				$items = array_slice( $items, 0, $args['default_count'] );
 			}
 
+			if ( ! is_array( $items ) ) {
+				$items = array();
+			}
+
 			return $items;
 		}
 
