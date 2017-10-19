@@ -12,7 +12,8 @@ if ( ! class_exists( 'UCF_Acad_Cal_Shortcode' ) ) {
 		 * @return string The shortcode output
 		 **/
 		public static function handler( $atts, $content='' ) {
-			$atts = shortcode_atts( UCF_Acad_Cal_Config::get_option_defaults(), $atts );
+			$atts = shortcode_atts( UCF_Acad_Cal_Config::get_shortcode_defaults(), $atts );
+
 			$items = UCF_Acad_Cal_Feed::get_feed( $atts );
 
 			ob_start();

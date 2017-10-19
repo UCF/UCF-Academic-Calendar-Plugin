@@ -90,6 +90,23 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 		}
 
 		/**
+		 * Returns a list of default shortcode attributes.
+		 * @author Jim Barnes
+		 * @since 1.0.0
+		 * @return array The shortcode attributes
+		 **/
+		public static function get_shortcode_defaults() {
+			$defaults = self::get_option_defaults();
+
+			return array(
+				'calendar_feed' => $defaults['calendar_feed'],
+				'calendar_url'  => $defaults['calendar_url'],
+				'count'         => $defaults['default_count'],
+				'layout'        => $defaults['defaults_layout']
+			);
+		}
+
+		/**
 		 * Returns an array with plugin defaults applied.
 		 * @author Jim Barnes
 		 * @since 1.0.0
