@@ -95,19 +95,15 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 		 * @since 1.0.0
 		 * @return array The shortcode attributes
 		 **/
-		public static function get_shortcode_defaults( $layout='classic' ) {
+		public static function get_shortcode_defaults() {
 			$defaults = self::get_option_defaults();
 
-			$retval = array(
+			return array(
 				'calendar_feed' => $defaults['calendar_feed'],
 				'calendar_url'  => $defaults['calendar_url'],
 				'count'         => $defaults['default_count'],
 				'layout'        => $defaults['defaults_layout']
 			);
-
-			$retval = apply_filters( 'ucf_acad_cal_get_shortcode_defaults_' . $layout, $retval );
-
-			return $retval;
 		}
 
 		/**
