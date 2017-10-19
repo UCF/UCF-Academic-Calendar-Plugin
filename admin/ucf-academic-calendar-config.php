@@ -89,6 +89,12 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 			return $defaults;
 		}
 
+		/**
+		 * Returns a list of default shortcode attributes.
+		 * @author Jim Barnes
+		 * @since 1.0.0
+		 * @return array The shortcode attributes
+		 **/
 		public static function get_shortcode_defaults() {
 			$defaults = self::get_option_defaults();
 
