@@ -19,7 +19,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 			);
 
 			$feed_url       = $args['calendar_feed'];
-			$use_cache      = $args['cache_items'];
+			$use_cache      = UCF_Acad_Cal_Config::get_option_or_default( 'cache_items' );
 			$items          = false;
 
 			if ( $use_cache ) {
@@ -39,7 +39,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 				}
 
 				if ( $use_cache ) {
-					$expiration = $args['cache_expiration'] * HOUR_IN_SECONDS;
+					$expiration = UCF_Acad_Cal_Config::get_option_or_default( 'cache_expiration' ) * HOUR_IN_SECONDS;
 
 					set_transient( $transient_name, $items, $expiration );
 				}
