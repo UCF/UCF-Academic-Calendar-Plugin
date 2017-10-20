@@ -22,7 +22,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 			$use_cache      = UCF_Acad_Cal_Config::get_option_or_default( 'cache_items' );
 			$offset         = isset( $args['offset'] ) ? intval( $args['offset'] ) : $args['default_offset'];
 			$count          = isset( $args['count'] ) ? intval( $args['count'] ) : $args['default_count'];
-			$isImportant    = $args['is_important'];
+			$is_important   = $args['is_important'];
 			$items          = false;
 
 			if ( $use_cache ) {
@@ -49,7 +49,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 			}
 
 			if ( $items ) {
-				$items = self::filter( $items, $offset, $count, $isImportant );
+				$items = self::filter( $items, $offset, $count, $is_important );
 			}
 
 			if ( ! is_array( $items ) ) {
