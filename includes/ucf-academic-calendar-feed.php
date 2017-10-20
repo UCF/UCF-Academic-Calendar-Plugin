@@ -20,6 +20,9 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 
 			$feed_url       = $args['calendar_feed'];
 			$use_cache      = UCF_Acad_Cal_Config::get_option_or_default( 'cache_items' );
+			$offset         = isset( $args['offset'] ) ? intval( $args['offset'] ) : $args['default_offset'];
+			$count          = isset( $args['count'] ) ? intval( $args['count'] ) : $args['default_count'];
+			$is_important   = $args['is_important'];
 			$items          = false;
 
 			if ( $use_cache ) {
@@ -46,7 +49,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 			}
 
 			if ( $items ) {
-				$items = array_slice( $items, 0, $args['default_count'] );
+				$items = self::filter( $items, $offset, $count, $is_important );
 			}
 
 			if ( ! is_array( $items ) ) {
@@ -65,6 +68,32 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 		 **/
 		private static function get_transient_name( $url ) {
 			return 'ucf_acad_cal_' . md5( $url );
+		}
+
+		/**
+		 * Filters events based on configuration options
+		 * @author Jim Barnes
+		 * @since 1.0.0
+		 * @param array $items The array of items to filter
+		 * @param int $offset The number of items to skip
+		 * @param int $count The number of items to return
+		 * @param bool $isImportant Flag indicating only isImportant items should be retrieved
+		 * @return array The filtered array of items
+		 **/
+		private static function filter( $items, $offset, $count, $isImportant ) {
+			$retval = array();
+
+			foreach( $items as $item ) {
+				if ( $isImportant ) {
+					if ( $item->isImportant ) {
+						$retval[] = $item;
+					}
+				} else {
+					$retval[] = $item;
+				}
+			}
+
+			return array_slice( $retval, $offset, $count );
 		}
 	}
 }
