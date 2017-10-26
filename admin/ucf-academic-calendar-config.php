@@ -111,7 +111,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Config' ) ) {
 				'calendar_url'  => $defaults['calendar_url'],
 				'count'         => $defaults['default_count'],
 				'offset'        => $defaults['default_offset'],
-				'layout'        => $defaults['defaults_layout'],
+				'layout'        => $defaults['default_layout'],
 				'is_important'  => $defaults['is_important']
 			);
 		}
