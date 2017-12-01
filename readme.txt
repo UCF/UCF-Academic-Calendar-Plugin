@@ -29,7 +29,9 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 == Changelog ==
 
-n/a
+= 1.0.0 =
+
+Initial release
 
 
 == Upgrade Notice ==
