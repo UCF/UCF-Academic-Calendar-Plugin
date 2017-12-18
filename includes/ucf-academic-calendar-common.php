@@ -34,7 +34,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Common' ) ) {
 			echo $layout_title;
 
 			// Content
-			$layout_content = ucf_acad_cal_display_classic( '', $items, $args );
+			$layout_content = ucf_acad_cal_display_classic( '', $items, $args, $content );
 			if ( has_filter( 'ucf_acad_cal_display_' . $layout ) ) {
 				$layout_content = apply_filters( 'ucf_acad_cal_display_' . $layout, $layout_content, $items, $args, $content );
 			}
@@ -43,7 +43,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Common' ) ) {
 
 			// After
 			$layout_after = ucf_acad_cal_display_classic_after( '', $items, $args );
-			if ( has_filter( 'ucf_acad_cal_display_' . $layout ) ) {
+			if ( has_filter( 'ucf_acad_cal_display_' . $layout . '_after' ) ) {
 				$layout_after = apply_filters( 'ucf_acad_cal_display_' . $layout . '_after', $layout_after, $items, $args );
 			}
 
