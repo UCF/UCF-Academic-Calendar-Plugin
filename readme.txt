@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, academic calendar, shortcodes
 Requires at least: 4.7.5
 Tested up to: 4.7.6
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -29,8 +29,14 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 == Changelog ==
 
-= 1.0.0 =
+= 1.0.1 =
+Bug Fixes:
+* Updated the classic layout to only loop through feed items if at least one is available to loop through
 
+Enhancements:
+* Added the ability to specify a fallback message via the `[ucf-academic-calendar]` shortcode's content; e.g. `[ucf-academic-calendar]No results found.[/ucf-academic-calendar]`
+
+= 1.0.0 =
 Initial release
 
 
