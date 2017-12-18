@@ -18,7 +18,7 @@ if ( ! class_exists( 'UCF_Acad_Cal_Shortcode' ) ) {
 
 			ob_start();
 
-			echo UCF_Acad_Cal_Common::display_academic_calendar_events( $items, $atts['layout'], $atts );
+			echo UCF_Acad_Cal_Common::display_academic_calendar_events( $items, $atts['layout'], $atts, $content );
 
 			return ob_get_clean();
 		}
