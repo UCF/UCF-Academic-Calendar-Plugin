@@ -58,13 +58,17 @@ if ( ! function_exists( 'ucf_acad_cal_display_classic' ) ) {
 	function ucf_acad_cal_display_classic( $content, $items, $args ) {
 		ob_start();
 	?>
-		<ul class="ucf-academic-calendar-list">
-	<?php foreach( $items as $item ) : ?>
+
+	<?php if ( !empty( $items ) ) : ?>
+	<ul class="ucf-academic-calendar-list">
+		<?php foreach( $items as $item ) : ?>
 			<li class="ucf-academic-calendar-list-item">
 				<a href="<?php echo $item->directUrl; ?>"><?php echo $item->summary; ?></a>
 			</li>
-	<?php endforeach; ?>
-		</ul>
+		<?php endforeach; ?>
+	</ul>
+	<?php endif; ?>
+
 	<?php
 		return ob_get_clean();
 	}
