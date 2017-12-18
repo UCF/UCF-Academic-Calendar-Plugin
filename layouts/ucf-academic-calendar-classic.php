@@ -53,9 +53,10 @@ if ( ! function_exists( 'ucf_acad_cal_display_classic' ) ) {
 	 * @param string $content The incoming content (for filter)
 	 * @param array $items The array of calendar events
 	 * @param array $args Additional arguments
+	 * @param string $fallback_message Message to be displayed when no results are found
 	 * @return string The content markup
 	 **/
-	function ucf_acad_cal_display_classic( $content, $items, $args ) {
+	function ucf_acad_cal_display_classic( $content, $items, $args, $fallback_message='' ) {
 		ob_start();
 	?>
 
@@ -67,6 +68,8 @@ if ( ! function_exists( 'ucf_acad_cal_display_classic' ) ) {
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	<?php else: ?>
+	<div class="ucf-academic-calendar-error"><?php echo $fallback_message; ?></div>
 	<?php endif; ?>
 
 	<?php
