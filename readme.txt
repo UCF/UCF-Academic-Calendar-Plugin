@@ -2,8 +2,8 @@
 Contributors: ucfwebcom
 Tags: ucf, academic calendar, shortcodes
 Requires at least: 4.7.5
-Tested up to: 4.7.6
-Stable tag: 1.0.1
+Tested up to: 4.9.8
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,15 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 
 == Changelog ==
+
+= 1.0.3 =
+Enhancements:
+* Added github plugin URI meta to is can be installed via the Github Updater Plugin.
+
+= 1.0.2 =
+Bug Fixes:
+* Updates feed function to get defaults from `get_shortcode_defaults` as these are the properly formatted options.
+* Updates the check to see if events exist on the feed response to check that the index exists within the results array **and** that the `events` property exists before trying to access it.
 
 = 1.0.1 =
 Bug Fixes:

@@ -22,6 +22,15 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 ## Changelog ##
 
+### 1.0.3 ###
+Enhancements:
+* Added github plugin URI meta to is can be installed via the Github Updater Plugin.
+
+### 1.0.2 ###
+Bug Fixes:
+* Updates feed function to get defaults from `get_shortcode_defaults` as these are the properly formatted options.
+* Updates the check to see if events exist on the feed response to check that the index exists within the results array **and** that the `events` property exists before trying to access it.
+
 ### 1.0.1 ###
 Bug Fixes:
 * Updated the classic layout to only loop through feed items if at least one is available to loop through

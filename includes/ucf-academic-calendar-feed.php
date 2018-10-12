@@ -14,14 +14,14 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 		public static function get_feed( $args ) {
 			// Get default values
 			$args = shortcode_atts(
-				UCF_Acad_Cal_Config::get_option_defaults(),
+				UCF_Acad_Cal_Config::get_shortcode_defaults(),
 				$args
 			);
 
 			$feed_url       = $args['calendar_feed'];
 			$use_cache      = UCF_Acad_Cal_Config::get_option_or_default( 'cache_items' );
-			$offset         = isset( $args['offset'] ) ? intval( $args['offset'] ) : $args['default_offset'];
-			$count          = isset( $args['count'] ) ? intval( $args['count'] ) : $args['default_count'];
+			$offset         = $args['offset'];
+			$count          = $args['count'];
 			$is_important   = $args['is_important'];
 			$items          = false;
 
@@ -36,9 +36,11 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 				if ( is_array( $response ) ) {
 					$retobj = json_decode( wp_remote_retrieve_body( $response ) );
 
-					if ( is_array( $retobj->terms ) ) {
+					if ( is_array( $retobj->terms ) && 
+						 array_key_exists( 0, $retobj->terms ) &&
+						 property_exists( $retobj->terms[0], 'events' ) ) {
 						$items = $retobj->terms[0]->events;
-					}
+					} // else $items is still false
 				}
 
 				if ( $use_cache ) {
