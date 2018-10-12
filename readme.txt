@@ -31,7 +31,7 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 = 1.0.3 =
 Enhancements:
-* Added github plugin URI meta to is can be installed via the Github Updater Plugin.
+* Added support for installation via Github Updater
 
 = 1.0.2 =
 Bug Fixes:
