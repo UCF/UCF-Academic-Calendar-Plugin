@@ -14,8 +14,6 @@ if ( ! class_exists( 'UCF_Acad_Cal_Shortcode' ) ) {
 		public static function handler( $atts, $content='' ) {
 			$atts = shortcode_atts( UCF_Acad_Cal_Config::get_shortcode_defaults(), $atts );
 
-			var_dump( $atts );
-
 			$items = UCF_Acad_Cal_Feed::get_feed( $atts );
 
 			ob_start();
