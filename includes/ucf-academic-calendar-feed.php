@@ -36,9 +36,11 @@ if ( ! class_exists( 'UCF_Acad_Cal_Feed' ) ) {
 				if ( is_array( $response ) ) {
 					$retobj = json_decode( wp_remote_retrieve_body( $response ) );
 
-					if ( is_array( $retobj->terms ) ) {
+					if ( is_array( $retobj->terms ) && 
+						 array_key_exists( 0, $retobj->terms ) &&
+						 property_exists( $retobj->terms[0], 'events' ) ) {
 						$items = $retobj->terms[0]->events;
-					}
+					} // else $items is still false
 				}
 
 				if ( $use_cache ) {
