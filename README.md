@@ -22,6 +22,10 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 ## Changelog ##
 
+### 1.0.3 ###
+Enhancements:
+* Added support for installation via Github Updater
+
 ### 1.0.2 ###
 Bug Fixes:
 * Updates feed function to get defaults from `get_shortcode_defaults` as these are the properly formatted options.
