@@ -1,0 +1,8 @@
+{
+    "name": "ucf/ucf-academic-calendar-plugin",
+    "description": "Provides a shortcode for displaying academic calendar dates.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

@@ -22,6 +22,10 @@ Provides a shortcode for displaying [academic calendar](http://calendar.ucf.edu/
 
 ## Changelog ##
 
+### 1.0.4 ###
+Enhancements:
+* Added composer file.
+
 ### 1.0.3 ###
 Enhancements:
 * Added support for installation via Github Updater

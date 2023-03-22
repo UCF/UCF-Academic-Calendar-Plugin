@@ -2,7 +2,7 @@
 /*
 Plugin Name: UCF Academic Calendar Plugin
 Description: Provides a shortcode for displaying UCF Academic Calendar dates with configurable defaults
-Version: 1.0.3
+Version: 1.0.4
 AuthorL UCF Web Communications
 License: GPL3
 Github Plugin URI: UCF/UCF-Academic-Calendar-Plugin
